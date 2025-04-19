@@ -13,7 +13,7 @@
     "react-intersection-observer": "^9.5.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.0",
-    "typescript": "^3.4.5"
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
