@@ -1,0 +1,89 @@
+:root {
+  /* Primary Colors */
+  --bg-primary: #0a192f;
+  --bg-secondary: #112240;
+  --bg-card: rgba(17, 34, 64, 0.7);
+  
+  /* Text Colors */
+  --text-primary: #e6f1ff;
+  --text-secondary: #8892b0;
+  
+  /* Accent Colors */
+  --accent-primary: #00dbde;
+  --accent-secondary: #fc00ff;
+  
+  /* Border Colors */
+  --card-border: rgba(255, 255, 255, 0.1);
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Improve touch targets */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-secondary);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  /* Prevent text size adjustment on orientation change */
+  * {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+}
+
+/* Improve touch feedback */
+@media (hover: none) {
+  .hover-effect {
+    transition: none;
+  }
+  
+  button:hover, a:hover {
+    transform: none;
+  }
+} 
