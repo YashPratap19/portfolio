@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaTrophy, FaMedal } from 'react-icons/fa';
 import { Section, Container, SectionTitle, Card } from '../styles/shared';

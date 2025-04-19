@@ -220,11 +220,6 @@ const App: React.FC = () => {
   const imageOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
-  const handleScrollClick = () => {
-    const nextSection = heroRef.current?.nextElementSibling;
-    nextSection?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <AppContainer>
       <FloatingNav />

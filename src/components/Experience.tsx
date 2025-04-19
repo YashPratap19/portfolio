@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Section, Container, SectionTitle, Card, BulletPoints } from '../styles/shared';
 
