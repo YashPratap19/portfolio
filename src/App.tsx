@@ -244,7 +244,15 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              Product Manager & Technology Enthusiast
+              Tech-oriented product and consulting enthusiast with a knack for blending creativity and functionality
+            </Role>
+            <Role
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              style={{ fontSize: '1.2rem', marginTop: '0.5rem', color: 'var(--accent-primary)' }}
+            >
+              In love with aviation and design.
             </Role>
             <ContactInfo
               initial={{ opacity: 0 }}
