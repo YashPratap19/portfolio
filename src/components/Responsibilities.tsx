@@ -82,7 +82,7 @@ const Responsibilities: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          Position of Responsibilities
+          Position of Responsibility
         </SectionTitle>
         <ResponsibilityCard
           ref={ref}
