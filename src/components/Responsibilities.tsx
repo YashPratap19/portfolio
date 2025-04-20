@@ -4,13 +4,16 @@ import { useInView } from 'react-intersection-observer';
 import { Section, Container, SectionTitle, Card, BulletPoints } from '../styles/shared';
 
 const ResponsibilitiesSection = styled(Section)`
-  padding: 6rem 2rem;
+  padding: 4rem 0;
 `;
 
-const ResponsibilitiesContainer = Container;
+const ResponsibilitiesContainer = styled(Container)`
+  width: 100%;
+`;
 
 const ResponsibilityCard = styled(Card)`
-  margin-bottom: 2rem;
+  margin-bottom: 0;
+  padding: 2.5rem;
 `;
 
 const RoleHeader = styled.div`

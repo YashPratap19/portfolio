@@ -92,15 +92,15 @@ export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 2rem;
+  padding: 0 2rem;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 0 1rem;
   }
 `;
 
 export const Section = styled.section`
-  padding: 2rem;
+  padding: 4rem 0;
   background: var(--bg-primary);
   position: relative;
   min-height: auto;
@@ -109,6 +109,6 @@ export const Section = styled.section`
   justify-content: center;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 3rem 0;
   }
 `; 

@@ -4,13 +4,19 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Section, Container, SectionTitle, Card } from '../styles/shared';
 
-const EducationSection = Section;
-const EducationContainer = Container;
+const EducationSection = styled(Section)`
+  padding: 4rem 0;
+`;
+
+const EducationContainer = styled(Container)`
+  width: 100%;
+`;
 
 const EducationCard = styled(Card)`
   position: relative;
   overflow: hidden;
   width: 100%;
+  padding: 2.5rem;
 
   &::before {
     content: '';
