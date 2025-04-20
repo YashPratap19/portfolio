@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
@@ -7,6 +8,7 @@ import Education from './components/Education';
 import Competitions from './components/Competitions';
 import Responsibilities from './components/Responsibilities';
 import FloatingNav from './components/FloatingNav';
+import RetroPage from './pages/RetroPage';
 import './styles/global.css';
 
 const AppContainer = styled.div`
@@ -212,7 +214,7 @@ const Section = styled.section`
   justify-content: center;
 `;
 
-const App: React.FC = () => {
+const MainContent: React.FC = () => {
   const { scrollYProgress } = useScroll();
   const heroRef = useRef<HTMLDivElement>(null);
   
@@ -311,6 +313,17 @@ const App: React.FC = () => {
         <Competitions />
       </Section>
     </AppContainer>
+  );
+};
+
+const App: React.FC = () => {
+  const location = useLocation();
+
+  return (
+    <Routes>
+      <Route path="/" element={<MainContent />} />
+      <Route path="/retro" element={<RetroPage />} />
+    </Routes>
   );
 };
 
