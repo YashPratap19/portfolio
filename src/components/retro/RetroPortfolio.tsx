@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import RetroContent from './RetroContent';
@@ -369,15 +369,10 @@ const CertificationCard = styled(ExperienceCard)`
   }
 `;
 
-interface Window {
-  id: string;
-  title: string;
-  content: React.ReactNode;
-}
-
 const RetroPortfolio: React.FC = () => {
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeWindow, setActiveWindow] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<typeof menuItems[0] | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const menuItems = [
     {
@@ -685,31 +680,27 @@ const RetroPortfolio: React.FC = () => {
   ];
 
   const handleItemClick = (item: typeof menuItems[0]) => {
-    setSelectedItem(item.id);
-    const sound = new Audio('/sounds/select.mp3');
-    sound.play().catch(() => {});
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setSelectedItem(item);
+    setActiveWindow(item.id);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    switch (e.key) {
-      case 'ArrowRight':
-        setSelectedIndex((prev) => (prev + 1) % menuItems.length);
-        break;
-      case 'ArrowLeft':
-        setSelectedIndex((prev) => (prev - 1 + menuItems.length) % menuItems.length);
-        break;
-      case 'Enter':
-        handleItemClick(menuItems[selectedIndex]);
-        break;
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setActiveWindow(null);
+      setSelectedItem(null);
     }
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedIndex]);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
-  const selectedItemData = menuItems.find(item => item.id === selectedItem);
+  const selectedItemData = menuItems.find(item => item.id === activeWindow);
 
   return (
     <PageContainer>
@@ -725,8 +716,8 @@ const RetroPortfolio: React.FC = () => {
                   animate={{ 
                     opacity: 1,
                     y: 0,
-                    scale: index === selectedIndex ? 1.1 : 1,
-                    border: index === selectedIndex ? '3px solid #DC0A2D' : 'none'
+                    scale: activeWindow === item.id ? 1.1 : 1,
+                    border: activeWindow === item.id ? '3px solid #DC0A2D' : 'none'
                   }}
                   exit={{ opacity: 0, y: -20 }}
                   whileHover={{ scale: 1.05 }}
@@ -741,19 +732,27 @@ const RetroPortfolio: React.FC = () => {
           <Controls>
             <ControlButton 
               aria-label="Previous"
-              onClick={() => setSelectedIndex((prev) => (prev - 1 + menuItems.length) % menuItems.length)}
+              onClick={() => {
+                if (activeWindow) {
+                  handleItemClick(menuItems.find(item => item.id === activeWindow) as typeof menuItems[0]);
+                }
+              }}
             >
               ◀
             </ControlButton>
             <ControlButton 
               aria-label="Select"
-              onClick={() => handleItemClick(menuItems[selectedIndex])}
+              onClick={() => handleItemClick(menuItems.find(item => item.id === activeWindow) as typeof menuItems[0])}
             >
               ●
             </ControlButton>
             <ControlButton 
               aria-label="Next"
-              onClick={() => setSelectedIndex((prev) => (prev + 1) % menuItems.length)}
+              onClick={() => {
+                if (activeWindow) {
+                  handleItemClick(menuItems.find(item => item.id === activeWindow) as typeof menuItems[0]);
+                }
+              }}
             >
               ▶
             </ControlButton>
@@ -764,7 +763,10 @@ const RetroPortfolio: React.FC = () => {
           {selectedItemData && (
             <RetroContent
               item={selectedItemData}
-              onClose={() => setSelectedItem(null)}
+              onClose={() => {
+                setActiveWindow(null);
+                setSelectedItem(null);
+              }}
             />
           )}
         </AnimatePresence>

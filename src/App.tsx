@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
@@ -317,7 +317,6 @@ const MainContent: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const location = useLocation();
 
   return (
     <Routes>
