@@ -57,6 +57,21 @@ const PokedexOuter = styled.div`
   }
 
   &::before {
+    content: 'Yash Portfolio Dex';
+    position: absolute;
+    top: 35px;
+    left: 100px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    font-family: 'VT323', monospace;
+    letter-spacing: 2px;
+    margin-left: 20px;
+  }
+
+  &::after {
     content: '';
     position: absolute;
     top: 20px;
@@ -382,6 +397,14 @@ const CertificationCard = styled(ExperienceCard)`
   }
 `;
 
+const WindowContent = styled.div`
+  padding: 20px;
+  color: #333;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
 const RetroPortfolio: React.FC = () => {
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<typeof menuItems[0] | null>(null);
@@ -667,28 +690,28 @@ const RetroPortfolio: React.FC = () => {
       icon: '📫',
       label: 'Contact',
       content: (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <ExperienceCard>
-            <h3>Get in Touch</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <FaEnvelope /> <span>yashpratap19.singh@gmail.com</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <FaPhone /> <span>+91-9818190310</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <FaLinkedin /> <span>linkedin.com/in/yashpratap19</span>
-              </div>
-            </div>
-          </ExperienceCard>
-
-          <ExperienceCard>
-            <h3>Location</h3>
-            <p>Based in New Delhi, India</p>
-            <p>Available for remote work and relocation</p>
-          </ExperienceCard>
-        </div>
+        <WindowContent>
+          <h2>Contact Me</h2>
+          <ContactSection>
+            <ProfileImage src="/profile.jpg" alt="Yash Pratap Singh" />
+            <ContactInfo>
+              <ContactItem>
+                <FaEnvelope />
+                <a href="mailto:yashpratap19.singh@gmail.com">yashpratap19.singh@gmail.com</a>
+              </ContactItem>
+              <ContactItem>
+                <FaPhone />
+                <a href="tel:+919818190310">+91-9818190310</a>
+              </ContactItem>
+              <ContactItem>
+                <FaLinkedin />
+                <a href="https://linkedin.com/in/yashpratap19" target="_blank" rel="noopener noreferrer">linkedin.com/in/yashpratap19</a>
+              </ContactItem>
+              <LocationText>Based in New Delhi, India</LocationText>
+              <AvailabilityText>Available for remote work and relocation</AvailabilityText>
+            </ContactInfo>
+          </ContactSection>
+        </WindowContent>
       )
     }
   ];
@@ -810,5 +833,60 @@ const RetroPortfolio: React.FC = () => {
     </PageContainer>
   );
 };
+
+const ContactSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+`;
+
+const ProfileImage = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid #DC0A2D;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+`;
+
+const ContactItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  
+  a {
+    color: #DC0A2D;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: #FF1A3D;
+      text-decoration: underline;
+    }
+  }
+`;
+
+const LocationText = styled.p`
+  margin-top: 10px;
+  font-style: italic;
+  color: #666;
+`;
+
+const AvailabilityText = styled.p`
+  margin-top: 5px;
+  color: #DC0A2D;
+  font-weight: bold;
+`;
 
 export default RetroPortfolio; 

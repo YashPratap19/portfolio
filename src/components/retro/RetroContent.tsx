@@ -174,8 +174,9 @@ const CloseButton = styled.button`
 interface RetroContentProps {
   item: {
     id: string;
-    icon: string;
-    label: string;
+    icon?: string;
+    label?: string;
+    title?: string;
     content: React.ReactNode;
   };
   onClose: () => void;
@@ -196,8 +197,8 @@ const RetroContent: React.FC<RetroContentProps> = ({ item, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <Header>
-          <Icon>{item.icon}</Icon>
-          <Title>{item.label}</Title>
+          {item.icon && <Icon>{item.icon}</Icon>}
+          <Title>{item.label || item.title}</Title>
         </Header>
         <ContentScroll>
           {item.content}
