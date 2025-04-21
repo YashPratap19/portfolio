@@ -12,6 +12,8 @@ const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  padding: 1rem;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     height: 100%;
@@ -21,12 +23,12 @@ const PageContainer = styled.div`
 `;
 
 const PokedexContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     padding: 0;
@@ -36,9 +38,9 @@ const PokedexContainer = styled.div`
 `;
 
 const PokedexOuter = styled.div`
-  width: 90%;
-  max-width: 1000px;
-  height: 90%;
+  width: 85%;
+  max-width: 900px;
+  height: 85%;
   background: #DC0A2D;
   border-radius: 20px;
   padding: 20px;
@@ -103,14 +105,14 @@ const PokedexOuter = styled.div`
 
 const Screen = styled.div`
   width: 100%;
-  height: calc(100% - 100px);
-  margin-top: 100px;
+  height: calc(100% - 80px);
+  margin-top: 80px;
   background: #98CB98;
   border: 20px solid #1B1B1B;
   border-radius: 10px;
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
   padding: 20px;
   overflow-y: auto;
@@ -167,7 +169,7 @@ const Screen = styled.div`
 const MenuCard = styled(motion.div)`
   background: #1B1B1B;
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -177,42 +179,42 @@ const MenuCard = styled(motion.div)`
     0 5px 15px rgba(0, 0, 0, 0.3),
     inset 0 0 10px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  min-height: 200px;
+  min-height: 150px;
   text-align: center;
 
   @media (max-width: 768px) {
-    min-height: 150px;
-    padding: 15px;
+    min-height: 120px;
+    padding: 12px;
   }
 
   img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
     image-rendering: pixelated;
 
     @media (max-width: 768px) {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 15px;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 12px;
     }
   }
 
   span.icon {
-    font-size: 64px;
-    margin-bottom: 20px;
+    font-size: 48px;
+    margin-bottom: 15px;
     display: block;
     text-align: center;
 
     @media (max-width: 768px) {
-      font-size: 48px;
-      margin-bottom: 15px;
+      font-size: 36px;
+      margin-bottom: 12px;
     }
   }
 
   span.label {
     color: #98CB98;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     text-shadow: 2px 2px 0 #000;
     font-family: 'Press Start 2P', monospace;
@@ -221,7 +223,7 @@ const MenuCard = styled(motion.div)`
     width: 100%;
 
     @media (max-width: 768px) {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 
