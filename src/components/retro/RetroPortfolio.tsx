@@ -156,44 +156,57 @@ const MenuCard = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   box-shadow: 
     0 5px 15px rgba(0, 0, 0, 0.3),
     inset 0 0 10px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  min-height: 180px;
+  min-height: 200px;
+  text-align: center;
 
   @media (max-width: 768px) {
-    min-height: 120px;
+    min-height: 150px;
     padding: 15px;
   }
 
   img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 15px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
     image-rendering: pixelated;
+
+    @media (max-width: 768px) {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+    }
   }
 
   span.icon {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
 
     @media (max-width: 768px) {
-      font-size: 36px;
-      margin-bottom: 10px;
+      font-size: 48px;
+      margin-bottom: 15px;
     }
   }
 
   span.label {
     color: #98CB98;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     text-shadow: 2px 2px 0 #000;
     font-family: 'Press Start 2P', monospace;
+    line-height: 1.4;
+    display: block;
+    width: 100%;
 
     @media (max-width: 768px) {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 
@@ -373,6 +386,7 @@ const RetroPortfolio: React.FC = () => {
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<typeof menuItems[0] | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const menuItems = [
     {
@@ -681,17 +695,37 @@ const RetroPortfolio: React.FC = () => {
 
   const handleItemClick = (item: typeof menuItems[0]) => {
     if (isTransitioning) return;
-    setIsTransitioning(true);
-    setSelectedItem(item);
-    setActiveWindow(item.id);
+    
+    if (activeWindow === item.id) {
+      // If clicking the same item, close the window
+      setIsTransitioning(true);
+      setActiveWindow(null);
+      setSelectedItem(null);
+    } else {
+      // If clicking a different item, open its window
+      setIsTransitioning(true);
+      setSelectedItem(item);
+      setActiveWindow(item.id);
+    }
   };
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      setActiveWindow(null);
-      setSelectedItem(null);
+    switch (e.key) {
+      case 'ArrowLeft':
+        setSelectedIndex((prev) => (prev - 1 + menuItems.length) % menuItems.length);
+        break;
+      case 'ArrowRight':
+        setSelectedIndex((prev) => (prev + 1) % menuItems.length);
+        break;
+      case 'Enter':
+        handleItemClick(menuItems[selectedIndex]);
+        break;
+      case 'Escape':
+        setActiveWindow(null);
+        setSelectedItem(null);
+        break;
     }
-  }, []);
+  }, [selectedIndex]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -699,6 +733,16 @@ const RetroPortfolio: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [handleKeyDown]);
+
+  // Reset transitioning state after animation
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning]);
 
   const selectedItemData = menuItems.find(item => item.id === activeWindow);
 
@@ -716,8 +760,8 @@ const RetroPortfolio: React.FC = () => {
                   animate={{ 
                     opacity: 1,
                     y: 0,
-                    scale: activeWindow === item.id ? 1.1 : 1,
-                    border: activeWindow === item.id ? '3px solid #DC0A2D' : 'none'
+                    scale: index === selectedIndex ? 1.1 : 1,
+                    border: index === selectedIndex ? '3px solid #DC0A2D' : 'none'
                   }}
                   exit={{ opacity: 0, y: -20 }}
                   whileHover={{ scale: 1.05 }}
@@ -732,27 +776,19 @@ const RetroPortfolio: React.FC = () => {
           <Controls>
             <ControlButton 
               aria-label="Previous"
-              onClick={() => {
-                if (activeWindow) {
-                  handleItemClick(menuItems.find(item => item.id === activeWindow) as typeof menuItems[0]);
-                }
-              }}
+              onClick={() => setSelectedIndex((prev) => (prev - 1 + menuItems.length) % menuItems.length)}
             >
               ◀
             </ControlButton>
             <ControlButton 
               aria-label="Select"
-              onClick={() => handleItemClick(menuItems.find(item => item.id === activeWindow) as typeof menuItems[0])}
+              onClick={() => handleItemClick(menuItems[selectedIndex])}
             >
               ●
             </ControlButton>
             <ControlButton 
               aria-label="Next"
-              onClick={() => {
-                if (activeWindow) {
-                  handleItemClick(menuItems.find(item => item.id === activeWindow) as typeof menuItems[0]);
-                }
-              }}
+              onClick={() => setSelectedIndex((prev) => (prev + 1) % menuItems.length)}
             >
               ▶
             </ControlButton>
